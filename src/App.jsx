@@ -1,19 +1,18 @@
-import { nanoid } from "nanoid";
-import { Component } from "react";
+import { nanoid } from 'nanoid';
+import { Component } from 'react';
 
-import Section from "./components/Section/Section";
-import Form from "./components/Form/Form";
-import Contacts from "./components/Contacts/Contacts";
+import Section from './components/Section/Section';
+import Form from './components/Form/Form';
+import Contacts from './components/Contacts/Contacts';
 
 class App extends Component {
   state = {
     contacts: [],
-    filter: "",
+    filter: '',
   };
 
   componentDidMount() {
-    const ContactsParse = JSON.parse(localStorage.getItem("users"));
-    console.log(ContactsParse);
+    const ContactsParse = JSON.parse(localStorage.getItem('users'));
     if (ContactsParse) {
       this.setState({ contacts: ContactsParse });
     }
@@ -21,14 +20,14 @@ class App extends Component {
 
   componentDidUpdate(prevState) {
     if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem("users", JSON.stringify(this.state.contacts));
+      localStorage.setItem('users', JSON.stringify(this.state.contacts));
     }
   }
 
   addContact = ({ name, number }) => {
     const { contacts } = this.state;
 
-    if (contacts.find((el) => el.name === name)) {
+    if (contacts.find(el => el.name === name)) {
       alert(`${name} is already in contacts`);
     } else {
       this.setState(({ contacts }) => {
@@ -44,10 +43,10 @@ class App extends Component {
     }
   };
 
-  removeContact = (id) => {
+  removeContact = id => {
     this.setState(({ contacts }) => {
       return {
-        contacts: contacts.filter((item) => item.id !== id),
+        contacts: contacts.filter(item => item.id !== id),
       };
     });
   };
@@ -76,10 +75,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Section title={"Phonebook"}>
+        <Section title={'Phonebook'}>
           <Form onSubmit={this.addContact} />
         </Section>
-        <Section title={"Contacts"}>
+        <Section title={'Contacts'}>
           <Contacts
             removeContact={this.removeContact}
             getFilteredConatcts={this.getFilteredConatcts()}
